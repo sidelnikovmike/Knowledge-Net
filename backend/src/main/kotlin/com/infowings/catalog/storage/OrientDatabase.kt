@@ -146,7 +146,7 @@ class  OrientDatabase(
 
         // создаем необходимые классы
         OrientDatabaseInitializer(this)
-            .initObject()
+//            .initObject()
             .initAspects()
             .initHistory()
             .initUsers(users)
