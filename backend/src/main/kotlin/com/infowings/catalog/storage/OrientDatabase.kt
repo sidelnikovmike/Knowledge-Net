@@ -146,13 +146,14 @@ class  OrientDatabase(
 
         // создаем необходимые классы
         OrientDatabaseInitializer(this)
+            .initObject()
             .initAspects()
             .initHistory()
             .initUsers(users)
             .initMeasures()
             .initReferenceBooks()
             .initSubject()
-            .initObject()
+//            .initObject()
             .initSearch() // this call should be latest
 
     }
