@@ -157,9 +157,9 @@ class OrientDatabase(
                 .initSearch() // this call should be latest
         } else {
             OrientDatabaseInitializer(this)
-                .initAspects()
-                .initHistory()
-                .initUsers(users)
+                //.initAspects()
+                //.initHistory()
+                //.initUsers(users)
                 .initMeasures2()
                 .initReferenceBooks()
             //.initSubject()
