@@ -160,12 +160,11 @@ class OrientDatabase(
                 .initAspects()
                 .initHistory()
                 .initUsers(users)
-                ///.initMeasures()
                 .initReferenceBooks()
-            //.initSubject()
-            //.initObject()
-            //.initSearch() // this call should be latest
-
+                .initMeasures()
+                .initSubject()
+                .initObject()
+                .initSearch() // this call should be latest
         }
 
     }
