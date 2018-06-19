@@ -153,19 +153,19 @@ class OrientDatabaseInitializer(private val database: OrientDatabase) {
         session(database) {
             MeasureGroupMap.values.forEach { localMeasureService.saveGroup(it) }
             localMeasureService.linkGroupsBidirectional(AreaGroup, LengthGroup)
-            localMeasureService.linkGroupsBidirectional(VolumeGroup, LengthGroup)
-            localMeasureService.linkGroupsBidirectional(SpeedGroup, LengthGroup)
-            localMeasureService.linkGroupsBidirectional(TorqueGroup, LengthGroup)
-            localMeasureService.linkGroupsBidirectional(PressureGroup, AreaGroup)
-            localMeasureService.linkGroupsBidirectional(DensityGroup, VolumeGroup)
-            localMeasureService.linkGroupsBidirectional(PressureGroup, MassGroup)
-            localMeasureService.linkGroupsBidirectional(DensityGroup, MassGroup)
-            localMeasureService.linkGroupsBidirectional(WorkEnergyGroup, PowerGroup)
-            localMeasureService.linkGroupsBidirectional(RotationFrequencyGroup, LengthGroup)
-            localMeasureService.linkGroupsBidirectional(TorqueGroup, ForceGroup)
-            localMeasureService.linkGroupsBidirectional(PowerGroup, TimeGroup)
-            localMeasureService.linkGroupsBidirectional(SpeedGroup, TimeGroup)
-            localMeasureService.linkGroupsBidirectional(RotationFrequencyGroup, TimeGroup)
+        //    localMeasureService.linkGroupsBidirectional(VolumeGroup, LengthGroup)
+        //    localMeasureService.linkGroupsBidirectional(SpeedGroup, LengthGroup)
+        //    localMeasureService.linkGroupsBidirectional(TorqueGroup, LengthGroup)
+        //    localMeasureService.linkGroupsBidirectional(PressureGroup, AreaGroup)
+        //    localMeasureService.linkGroupsBidirectional(DensityGroup, VolumeGroup)
+        //    localMeasureService.linkGroupsBidirectional(PressureGroup, MassGroup)
+        //    localMeasureService.linkGroupsBidirectional(DensityGroup, MassGroup)
+        //    localMeasureService.linkGroupsBidirectional(WorkEnergyGroup, PowerGroup)
+        //    localMeasureService.linkGroupsBidirectional(RotationFrequencyGroup, LengthGroup)
+        //    localMeasureService.linkGroupsBidirectional(TorqueGroup, ForceGroup)
+        //    localMeasureService.linkGroupsBidirectional(PowerGroup, TimeGroup)
+        //    localMeasureService.linkGroupsBidirectional(SpeedGroup, TimeGroup)
+         //   localMeasureService.linkGroupsBidirectional(RotationFrequencyGroup, TimeGroup)
         }
         return@session this
     }
