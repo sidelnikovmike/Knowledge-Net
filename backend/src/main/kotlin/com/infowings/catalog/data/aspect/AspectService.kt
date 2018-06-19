@@ -196,6 +196,8 @@ class AspectService(
     }
 
     private fun List<Aspect>.sort(orderBy: List<AspectOrderBy>): List<Aspect> {
+        logger.info("Starting to sort: ${System.currentTimeMillis()}")
+
         if (orderBy.isEmpty()) {
             return this
         }
