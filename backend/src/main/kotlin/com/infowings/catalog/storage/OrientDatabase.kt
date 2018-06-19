@@ -52,7 +52,7 @@ data class Versioned<out T>(val entity: T, val version: Int)
  * Main class for work with database
  * */
 class OrientDatabase(
-    url: String,
+    val url: String,
     val database: String,
     username: String,
     password: String,
@@ -145,15 +145,28 @@ class OrientDatabase(
         }
 
         // создаем необходимые классы
-        OrientDatabaseInitializer(this)
-            .initAspects()
-            .initHistory()
-            .initUsers(users)
-            .initMeasures()
-            .initReferenceBooks()
+        if (url == "memory") {
+            OrientDatabaseInitializer(this)
+                .initAspects()
+                .initHistory()
+                .initUsers(users)
+                .initMeasures()
+                .initReferenceBooks()
+                .initSubject()
+                .initObject()
+                .initSearch() // this call should be latest
+        } else {
+            OrientDatabaseInitializer(this)
+                .initAspects()
+                .initHistory()
+                .initUsers(users)
+                .initMeasures()
+                .initReferenceBooks()
             //.initSubject()
             //.initObject()
             //.initSearch() // this call should be latest
+
+        }
 
     }
 
