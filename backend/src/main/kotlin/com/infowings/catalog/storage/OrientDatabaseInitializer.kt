@@ -171,16 +171,16 @@ class OrientDatabaseInitializer(private val database: OrientDatabase) {
     }
 
     fun initMeasures2(): OrientDatabaseInitializer = session(database) { session ->
-        createVertexWithNameAndDesc(session, MEASURE_GROUP_VERTEX)
-        createVertexWithNameAndDesc(session, MEASURE_VERTEX)
-        session.getClass(MEASURE_GROUP_EDGE) ?: session.createEdgeClass(MEASURE_GROUP_EDGE)
-        session.getClass(MEASURE_BASE_EDGE) ?: session.createEdgeClass(MEASURE_BASE_EDGE)
-        session.getClass(MEASURE_BASE_AND_GROUP_EDGE) ?: session.createEdgeClass(MEASURE_BASE_AND_GROUP_EDGE)
+        //createVertexWithNameAndDesc(session, MEASURE_GROUP_VERTEX)
+        //createVertexWithNameAndDesc(session, MEASURE_VERTEX)
+        //session.getClass(MEASURE_GROUP_EDGE) ?: session.createEdgeClass(MEASURE_GROUP_EDGE)
+        //session.getClass(MEASURE_BASE_EDGE) ?: session.createEdgeClass(MEASURE_BASE_EDGE)
+        //session.getClass(MEASURE_BASE_AND_GROUP_EDGE) ?: session.createEdgeClass(MEASURE_BASE_AND_GROUP_EDGE)
 
         /** Add initial measures to database */
         val localMeasureService = MeasureService(database)
         session(database) {
-            /*MeasureGroupMap */ setOf(AreaGroup, LengthGroup).forEach { localMeasureService.saveGroup(it) }
+            setOf(AreaGroup, LengthGroup).forEach { localMeasureService.saveGroup(it) }
             localMeasureService.linkGroupsBidirectional(AreaGroup, LengthGroup)
         }
 
