@@ -160,7 +160,7 @@ class OrientDatabase(
                 .initAspects()
                 .initHistory()
                 .initUsers(users)
-                .initMeasures()
+                .initMeasures2()
                 .initReferenceBooks()
             //.initSubject()
             //.initObject()
