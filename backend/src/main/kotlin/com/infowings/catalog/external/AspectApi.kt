@@ -42,11 +42,15 @@ class AspectApi(val aspectService: AspectService) {
         @RequestParam(required = false) direct: List<String>,
         @RequestParam("q", required = false) query: String?
     ): AspectsList {
+        logger.info("ALL-1: ${System.currentTimeMillis()}")
         logger.debug("Get all aspects request, orderFields: ${orderFields.joinToString { it }}, direct: ${direct.joinToString { it }}, query: $query")
         val orderBy = direct.zip(orderFields).map { (direction, order) ->
             AspectOrderBy(AspectSortField.valueOf(order), Direction.valueOf(direction))
         }
-        return AspectsList(aspectService.getAspects(orderBy, query).toAspectData())
+        logger.info("ALL-2: ${System.currentTimeMillis()}")
+        val res =  AspectsList(aspectService.getAspects(orderBy, query).toAspectData())
+        logger.info("ALL-9: ${System.currentTimeMillis()}")
+        return res
     }
 
     @PostMapping("remove")
