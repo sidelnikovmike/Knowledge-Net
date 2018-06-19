@@ -151,9 +151,9 @@ class OrientDatabase(
             .initUsers(users)
             .initMeasures()
             .initReferenceBooks()
-            .initSubject()
-            .initObject()
-            .initSearch() // this call should be latest
+            //.initSubject()
+            //.initObject()
+            //.initSearch() // this call should be latest
 
     }
 
