@@ -90,7 +90,7 @@ class MeasureService(val database: OrientDatabase) {
     /** Соединяем две вершины типа {MeasureGroupVertex} односторонней связью типа {MeasureGroupEdge}.
      *  Пример:   LengthGroup ----> SpeedGroup]
      * */
-    private fun linkGroups(source: MeasureGroup<*>, target: MeasureGroup<*>): OEdge? {
+    fun linkGroups(source: MeasureGroup<*>, target: MeasureGroup<*>): OEdge? {
         val firstVertexGroup = findMeasureGroup(source.name) ?: return null
         val secondVertexGroup = findMeasureGroup(target.name) ?: return null
         val addedBefore =

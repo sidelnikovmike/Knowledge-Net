@@ -181,7 +181,11 @@ class OrientDatabaseInitializer(private val database: OrientDatabase) {
         val localMeasureService = MeasureService(database)
         session(database) {
             setOf(AreaGroup, LengthGroup).forEach { localMeasureService.saveGroup(it) }
-            localMeasureService.linkGroupsBidirectional(AreaGroup, LengthGroup)
+            localMeasureService.linkGroups(AreaGroup, LengthGroup)
+            //localMeasureService.linkGroups(second, first)
+
+
+            //localMeasureService.linkGroupsBidirectional(AreaGroup, LengthGroup)
         }
 
         return@session this
