@@ -7,6 +7,7 @@ import com.infowings.catalog.data.aspect.selectFromAspectWithoutDeleted
 import com.infowings.catalog.data.aspect.toAspectVertex
 import com.infowings.catalog.data.subject.toSubject
 import com.infowings.catalog.data.subject.toSubjectVertex
+import com.infowings.catalog.loggerFor
 import com.infowings.catalog.storage.*
 import com.orientechnologies.orient.core.id.ORecordId
 import com.orientechnologies.orient.core.record.OVertex
@@ -16,6 +17,9 @@ import notDeletedSql
 /**
  * Сервис поиска в OrientDB
  */
+
+private val logger = loggerFor<SuggestionService>()
+
 class SuggestionService(
     private val database: OrientDatabase
 ) {
@@ -172,6 +176,9 @@ class SuggestionService(
         aspectParam: AspectSuggestionParam?
     ): Sequence<AspectVertex> {
         val aspectId = context.aspectId
+
+        logger.info("findAspectInDb. context: $context, commonParam: $commonParam, aspectParam: $aspectParam")
+        
         val res: Sequence<OResult> =
             if (aspectParam?.measureName != null || aspectParam?.measureText != null) {
                 val measureName = textOrAllWildcard(aspectParam.measureName)
@@ -207,7 +214,10 @@ class SuggestionService(
             } else {
                 if (aspectId == null) {
                     val q = "$selectFromAspectWithoutDeleted AND SEARCH_INDEX(${luceneIdx(ASPECT_CLASS, ATTR_NAME)}, :$lq) = true"
-                    database.query(q, mapOf(lq to luceneQuery(textOrAllWildcard(commonParam?.text)))) { it }
+                    val params = mapOf(lq to luceneQuery(textOrAllWildcard(commonParam?.text)))
+                    logger.info("query: $q")
+                    logger.info("params: $params")
+                    database.query(q, params) { it }
                 } else {
                     findAspectVertexNoCycle(aspectId, textOrAllWildcard(commonParam?.text))
                 }
