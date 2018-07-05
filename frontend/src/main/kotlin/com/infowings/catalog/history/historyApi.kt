@@ -27,7 +27,8 @@ suspend fun getAllEvents(): List<HistoryData<*>> {
     val times = listOf(t1, t2, t3, t4, t5, t6)
     println("times: " + times)
 
-    println("time ranges: " + times.zipWithNext())
+    println("time ranges: " + times.zipWithNext().map { it.second - it.first })
+    println("total: " + (t6 - t1))
 
     return res
 }
