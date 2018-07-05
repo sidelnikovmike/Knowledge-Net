@@ -6,6 +6,7 @@ import kotlinx.serialization.json.JSON
 import kotlin.js.Date
 
 suspend fun getAllEvents(): List<HistoryData<*>> {
+    println("get all events")
     val t1 = Date.now()
     val aspectEvents = getAllAspectEvents()
     val t2 = Date.now()
