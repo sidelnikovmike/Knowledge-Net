@@ -78,9 +78,12 @@ class ReferenceBookApiMiddleware : RComponent<ReferenceBookApiMiddleware.Props, 
             updateReferenceBook(book)
         } catch (e: NotModifiedException) {
             console.log("Reference book updating rejected because data is the same")
+        } catch (e: BadRequestException) {
+            throw RefBookBadRequestException(JSON.parse(e.message))
+        } finally {
+            val updatedBook = getReferenceBook(book.aspectId)
+            updateRowDataList(book.aspectId, updatedBook)
         }
-        val updatedBook = getReferenceBook(book.aspectId)
-        updateRowDataList(book.aspectId, updatedBook)
     }
 
     private suspend fun handleDeleteBook(book: ReferenceBook, force: Boolean) {
@@ -105,9 +108,13 @@ class ReferenceBookApiMiddleware : RComponent<ReferenceBookApiMiddleware.Props, 
         Maybe get ReferenceBook with all his children is not optimal way, because it can be very large json
         Actually we need only created ReferenceBookItem id.
         */
-        createReferenceBookItem(data)
-        val updatedBook = getReferenceBook(aspectId)
-        updateRowDataList(updatedBook.aspectId, updatedBook)
+        try {
+            createReferenceBookItem(data)
+            val updatedBook = getReferenceBook(aspectId)
+            updateRowDataList(updatedBook.aspectId, updatedBook)
+        } catch (e: BadRequestException) {
+            throw RefBookBadRequestException(JSON.parse(e.message))
+        }
     }
 
     private suspend fun handleUpdateBookItem(aspectId: String, bookItem: ReferenceBookItem, force: Boolean) {
