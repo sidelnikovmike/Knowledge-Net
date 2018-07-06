@@ -2,7 +2,7 @@ package com.infowings.catalog.reference.book.editconsole
 
 import com.infowings.catalog.common.ReferenceBookItem
 import com.infowings.catalog.components.treeview.treeNode
-import com.infowings.catalog.utils.BadRequestException
+import com.infowings.catalog.reference.book.RefBookBadRequestException
 import kotlinx.coroutines.experimental.launch
 import kotlinx.html.js.onBlurFunction
 import kotlinx.html.js.onKeyDownFunction
@@ -54,7 +54,7 @@ class ReferenceBookItemEditConsole(props: Props) :
         launch {
             try {
                 props.onSubmit(props.bookItem.copy(value = state.value), false)
-            } catch (e: BadRequestException) {
+            } catch (e: RefBookBadRequestException) {
                 setState {
                     errorMessage = e.message
                 }

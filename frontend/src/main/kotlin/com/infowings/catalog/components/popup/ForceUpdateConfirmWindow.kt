@@ -2,6 +2,7 @@ package com.infowings.catalog.components.popup
 
 import com.infowings.catalog.wrappers.blueprint.Alert
 import com.infowings.catalog.wrappers.blueprint.Intent
+import kotlinx.coroutines.experimental.launch
 import react.*
 import react.dom.div
 import react.dom.h3
@@ -21,7 +22,9 @@ class ForceUpdateConfirmWindow : RComponent<ForceUpdateConfirmWindow.Props, RSta
                 onConfirm = {
                     it.preventDefault()
                     it.stopPropagation()
-                    props.onConfirm()
+                    launch {
+                        props.onConfirm()
+                    }
                 }
                 cancelButtonText = "Cancel"
                 confirmButtonText = "Update"
@@ -35,7 +38,7 @@ class ForceUpdateConfirmWindow : RComponent<ForceUpdateConfirmWindow.Props, RSta
     }
 
     interface Props : RProps {
-        var onConfirm: () -> Unit
+        var onConfirm: suspend () -> Unit
         var onCancel: () -> Unit
         var isOpen: Boolean
         var message: String

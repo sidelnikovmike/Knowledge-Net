@@ -5,7 +5,6 @@ import com.infowings.catalog.common.ReferenceBookItem
 import com.infowings.catalog.components.popup.forceUpdateConfirmWindow
 import com.infowings.catalog.reference.book.RefBookBadRequestException
 import com.infowings.catalog.reference.book.editconsole.bookItemEditConsole
-import kotlinx.coroutines.experimental.launch
 import kotlinx.html.js.onClickFunction
 import org.w3c.dom.events.Event
 import react.*
@@ -35,7 +34,7 @@ class ReferenceBookItemLabel : RComponent<ReferenceBookItemLabel.Props, Referenc
         }
     }
 
-    private fun handleUpdateBookItem(bookItem: ReferenceBookItem, force: Boolean) {
+    private suspend fun handleUpdateBookItem(bookItem: ReferenceBookItem, force: Boolean) {
         forUpdate = bookItem
         tryUpdate(force)
         setState {
@@ -43,16 +42,14 @@ class ReferenceBookItemLabel : RComponent<ReferenceBookItemLabel.Props, Referenc
         }
     }
 
-    private fun tryUpdate(force: Boolean) {
-        launch {
-            try {
-                props.updateBookItem(props.aspectId, forUpdate, force)
-                setState { confirmation = false }
-            } catch (e: RefBookBadRequestException) {
-                when (e.exceptionInfo.code) {
-                    BadRequestCode.NEED_CONFIRMATION -> setState { confirmation = true }
-                    else -> throw e
-                }
+    private suspend fun tryUpdate(force: Boolean) {
+        try {
+            props.updateBookItem(props.aspectId, forUpdate, force)
+            setState { confirmation = false }
+        } catch (e: RefBookBadRequestException) {
+            when (e.exceptionInfo.code) {
+                BadRequestCode.NEED_CONFIRMATION -> setState { confirmation = true }
+                else -> throw e
             }
         }
     }
